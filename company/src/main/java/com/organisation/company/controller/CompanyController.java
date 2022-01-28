@@ -8,6 +8,7 @@ import com.organisation.company.Repository.CompanyRepository;
 import com.organisation.company.model.CompanyDetails;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +25,13 @@ public class CompanyController {
 
     @PostMapping("/add")
     public CompanyDetails saveCompany(@RequestBody CompanyDetails company) throws SQLException, IOException{
-        
+        if(company==null) return null;    
+
         company.setcId(companyRepository.findcId());
-        
+        company.getOther().setCompId(company.getcId());
+        for(int i=0;i<company.getBank().size();i++){
+            company.getBank().get(i).setCompId(company.getcId());
+        }
         return companyRepository.save(company);
         
     }
@@ -57,4 +62,14 @@ public class CompanyController {
         return companyRepository.findAll();
     }
 
+    @GetMapping("/all")
+    public List<CompanyDetails>  getAll(){
+        return companyRepository.findAll();
+    }
+
+    @GetMapping("/get/{id}")
+    public CompanyDetails getCompanyById(@PathVariable("id") String id){
+        
+        return null;
+    }
 }
