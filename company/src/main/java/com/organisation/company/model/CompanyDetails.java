@@ -9,18 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 
 
 @Entity
 public class CompanyDetails {
     
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Id
     @Column(nullable = false)
-    private String cId;
+    private String companyId;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -40,28 +39,35 @@ public class CompanyDetails {
     private String website;
     private double companyINR;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private OtherDetails other;
-
+    //to check continue or discontinue
+    private boolean companyStatus=true;
     
+    //Other details 
+    @Column(nullable = false)
+    private String panNo;
+    private String bin;
+    private String cstNo;
+    private String iecCode;
+    private String selfSealNo;
+    private String gstNo;
+    private String reg_cin;
+    private String otherTax;
+    private String tinNo;
+
+    //Bank Details
     @OneToMany(cascade = CascadeType.ALL)
     private List<BankDetails> bank;
 
-   public List<BankDetails> getBank() {
-       return bank;
-   }
+    public CompanyDetails() {
+    }
 
-
-    public void setBank(List<BankDetails> bank) {
-       this.bank = bank;
-   }
-
-    public CompanyDetails(int id, String cId, String name, String address, String locality, String street,
+    public CompanyDetails(int id, String companyId, String name, String address, String locality, String street,
             String country, String state, String city, int pinCode, String registrationType, String organisationType,
             String contactNo1, String contactNo2, String fax, String email, String picture, String website,
-            double companyINR, OtherDetails other, List<BankDetails> bank) {
+            double companyINR, boolean companyStatus, String panNo, String bin, String cstNo, String iecCode,
+            String selfSealNo, String gstNo, String reg_cin, String otherTax, String tinNo, List<BankDetails> bank) {
         this.id = id;
-        this.cId = cId;
+        this.companyId = companyId;
         this.name = name;
         this.address = address;
         this.locality = locality;
@@ -79,23 +85,17 @@ public class CompanyDetails {
         this.picture = picture;
         this.website = website;
         this.companyINR = companyINR;
-        this.other = other;
-       // this.bank = bank;
-    }
-
-    public CompanyDetails(){
-    }
-    
-
-
-    @Override
-    public String toString() {
-        return "CompanyDetails [address=" + address + ", cId=" + cId + ", city=" + city + ", companyINR=" + companyINR
-                + ", contactNo1=" + contactNo1 + ", contactNo2=" + contactNo2 + ", country=" + country + ", email="
-                + email + ", fax=" + fax + ", id=" + id + ", locality=" + locality + ", name=" + name
-                + ", organisationType=" + organisationType + ", other=" + other + ", picture=" + picture + ", pinCode="
-                + pinCode + ", registrationType=" + registrationType + ", state=" + state + ", street=" + street
-                + ", website=" + website + "]";
+        this.companyStatus = companyStatus;
+        this.panNo = panNo;
+        this.bin = bin;
+        this.cstNo = cstNo;
+        this.iecCode = iecCode;
+        this.selfSealNo = selfSealNo;
+        this.gstNo = gstNo;
+        this.reg_cin = reg_cin;
+        this.otherTax = otherTax;
+        this.tinNo = tinNo;
+        this.bank = bank;
     }
 
     public int getId() {
@@ -106,12 +106,12 @@ public class CompanyDetails {
         this.id = id;
     }
 
-    public String getcId() {
-        return cId;
+    public String getCompanyId() {
+        return companyId;
     }
 
-    public void setcId(String cId) {
-        this.cId = cId;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getName() {
@@ -250,14 +250,94 @@ public class CompanyDetails {
         this.companyINR = companyINR;
     }
 
-    public OtherDetails getOther() {
-        return other;
+    public boolean isCompanyStatus() {
+        return companyStatus;
     }
 
-    public void setOther(OtherDetails other) {
-        this.other = other;
+    public void setCompanyStatus(boolean companyStatus) {
+        this.companyStatus = companyStatus;
+    }
+
+    public String getPanNo() {
+        return panNo;
+    }
+
+    public void setPanNo(String panNo) {
+        this.panNo = panNo;
+    }
+
+    public String getBin() {
+        return bin;
+    }
+
+    public void setBin(String bin) {
+        this.bin = bin;
+    }
+
+    public String getCstNo() {
+        return cstNo;
+    }
+
+    public void setCstNo(String cstNo) {
+        this.cstNo = cstNo;
+    }
+
+    public String getIecCode() {
+        return iecCode;
+    }
+
+    public void setIecCode(String iecCode) {
+        this.iecCode = iecCode;
+    }
+
+    public String getSelfSealNo() {
+        return selfSealNo;
+    }
+
+    public void setSelfSealNo(String selfSealNo) {
+        this.selfSealNo = selfSealNo;
+    }
+
+    public String getGstNo() {
+        return gstNo;
+    }
+
+    public void setGstNo(String gstNo) {
+        this.gstNo = gstNo;
+    }
+
+    public String getReg_cin() {
+        return reg_cin;
+    }
+
+    public void setReg_cin(String reg_cin) {
+        this.reg_cin = reg_cin;
+    }
+
+    public String getOtherTax() {
+        return otherTax;
+    }
+
+    public void setOtherTax(String otherTax) {
+        this.otherTax = otherTax;
+    }
+
+    public String getTinNo() {
+        return tinNo;
+    }
+
+    public void setTinNo(String tinNo) {
+        this.tinNo = tinNo;
+    }
+
+    public List<BankDetails> getBank() {
+        return bank;
+    }
+
+    public void setBank(List<BankDetails> bank) {
+        this.bank = bank;
     }
 
     
-
+        
 }
